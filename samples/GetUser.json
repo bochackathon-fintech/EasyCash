@@ -1,0 +1,27 @@
+{
+   "short_name": "Account Owner 52",
+   "customer_id": "d9395cc00979c72735b51715",
+   "display_name": "Account Owner 52",
+   "bank_permissions": [   {
+      "bank_id": "bda8eb884efcef7082792d45",
+      "customer_id": "d9395cc00979c72735b51715",
+      "can_edit_products": true,
+      "can_edit_customers": true,
+      "can_edit_branches": true,
+      "can_edit_atms": true,
+      "can_add_all_transactions_for_banks": true,
+      "can_edit_all_transactions_for_banks": true,
+      "_id": "5900abbc4125241b2842509b"
+   }],
+   "providers": [   {
+      "auth_provider_name": "012012012665",
+      "auth_id": "123456789",
+      "_id": "448a8be89819817ab7c842b9"
+   }],
+   "can_add_all_transactions_for_banks": true,
+   "can_edit_users": false,
+   "can_edit_banks": false,
+   "can_add_users": true,
+   "can_add_bank": true,
+   "id": "61fe1089cbd7e44ecc8c32ff"
+}
