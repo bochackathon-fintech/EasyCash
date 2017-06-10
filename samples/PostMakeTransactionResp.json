@@ -1,0 +1,23 @@
+{
+   "to":    {
+      "bank_id": "bda8eb884efcef7082792d45",
+      "account_id": "9eba987e3908da8d605c61f4"
+   },
+   "value":    {
+      "amount": 10,
+      "currency": "EUR"
+   },
+   "transaction_ids":    [
+      "593c3bfe270faa1f181203ec",
+      "593c3bfe270faa1f181203ed"
+   ],
+   "status": "COMPLETED",
+   "challenge": {},
+   "end_date": "2017-06-10T18:35:42.143Z",
+   "timestamp": "2017-06-10T18:35:42.143Z",
+   "description": "string",
+   "resource_url": "/api/banks/bda8eb884efcef7082792d45/accounts/bda8eb884efcea209b2a6240/make-transaction",
+   "bank_id": "bda8eb884efcef7082792d45",
+   "account_id": "bda8eb884efcea209b2a6240",
+   "id": "593c3bfe270faa1f181203eb"
+}

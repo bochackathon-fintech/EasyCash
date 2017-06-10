@@ -1,0 +1,16 @@
+{
+  "description": "string",
+  "challenge_type": "string",
+  "from": {
+    "account_id": "bda8eb884efcea209b2a6240",
+    "bank_id": "bda8eb884efcea209b2a6240"    
+  },
+  "to": {
+    "account_id": "9eba987e3908da8d605c61f4",
+    "bank_id": "bda8eb884efcef7082792d45"
+  },
+  "value": {
+    "currency": "EUR",
+    "amount": 10.00
+  }
+}

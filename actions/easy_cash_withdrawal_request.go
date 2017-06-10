@@ -16,6 +16,7 @@ import (
 
 // EasyCashWithdrawalRequestMake default implementation.
 func EasyCashWithdrawalRequestMake(c buffalo.Context) error {
+	log.SetFlags(log.Lshortfile)
 	//BoCAPI -> GetBalance(AuthProviderName,AuthID)
 	viewid := integration.GetView()
 	balance := integration.GetBalance(viewid)
@@ -69,8 +70,21 @@ func EasyCashWithdrawalRequestMake(c buffalo.Context) error {
 		// ask Bob to authorized with websocket?
 		//to Bob -> WithdrawRequest(ForAlice,Amount)
 		//
-		// BoCAPI -> Make Payment
-	}
+		ToAccountID := integration.GetAccounts()
+		if ToAccountID != "" {
+			status := integration.PostMakeTransaction(requestedAmount, ToAccountID)
 
-	return c.Render(200, r.HTML("easy_cash_withdrawal_request/make.html"))
+			if status == "COMPLETED" {
+				c.Set("authresponse", status)
+				return c.Render(200, r.HTML("easy_cash_withdrawal_request/make.html"))
+			} else {
+				c.Set("authresponse", "Withdrawal declined. Internal error")
+				return c.Render(500, r.HTML("easy_cash_withdrawal_request/make.html"))
+			}
+		} else {
+			c.Set("authresponse", "Withdrawal declined. ToAccountID not found")
+			return c.Render(500, r.HTML("easy_cash_withdrawal_request/make.html"))
+		}
+
+	}
 }

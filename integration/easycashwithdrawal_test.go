@@ -77,3 +77,48 @@ func TestParseUser(t *testing.T) {
 	json.Unmarshal(file, &jsontype)
 	fmt.Printf("Results: %v\n", jsontype)
 }
+
+func TestParseMakeTransactionReq(t *testing.T) {
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\PostMakeTransactionReq.json")
+	if e != nil {
+		fmt.Printf("File error: %v\n", e)
+		os.Exit(1)
+	}
+	fmt.Printf("%s\n", string(file))
+
+	//m := new(Dispatch)
+	//var m interface{}
+	var jsontype MsgMakeTransactionReq
+	json.Unmarshal(file, &jsontype)
+	fmt.Printf("Results: %v\n", jsontype)
+
+}
+func TestMsgMakeTransactionResp(t *testing.T) {
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\PostMakeTransactionResp.json")
+	if e != nil {
+		fmt.Printf("File error: %v\n", e)
+		os.Exit(1)
+	}
+	fmt.Printf("%s\n", string(file))
+
+	//m := new(Dispatch)
+	//var m interface{}
+	var jsontype MsgMakeTransactionResp
+	json.Unmarshal(file, &jsontype)
+	fmt.Printf("Results: %v\n", jsontype)
+}
+
+func TestParseAccounts(t *testing.T) {
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\GetAccountsResponse.json")
+	if e != nil {
+		fmt.Printf("File error: %v\n", e)
+		os.Exit(1)
+	}
+	fmt.Printf("%s\n", string(file))
+
+	//m := new(Dispatch)
+	//var m interface{}
+	var jsontype MsgAccountsArray
+	json.Unmarshal(file, &jsontype)
+	fmt.Printf("Results: %v\n", jsontype)
+}
