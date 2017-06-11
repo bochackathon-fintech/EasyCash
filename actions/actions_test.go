@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/gobuffalo/suite"
-	"github.com/matteo107/humanevolutionapi/actions"
+	"github.com/matteo107/easycash/actions"
 )
 
 type ActionSuite struct {

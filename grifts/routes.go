@@ -6,7 +6,7 @@ import (
 	"text/tabwriter"
 
 	. "github.com/markbates/grift/grift"
-	"github.com/matteo107/humanevolutionapi/actions"
+	"github.com/matteo107/easycash/actions"
 )
 
 var _ = Add("routes", func(c *Context) error {

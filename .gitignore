@@ -9,4 +9,5 @@ node_modules/
 *-packr.go
 public/assets/
 humanevolutionapi
+easycash
 *.exe

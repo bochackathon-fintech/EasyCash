@@ -1,11 +1,12 @@
 package actions
 
 import (
-	"bytes"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 
+	"github.com/gobuffalo/buffalo"
 	"github.com/gorilla/websocket"
 )
 
@@ -34,9 +35,13 @@ var upgrader = websocket.Upgrader{
 }
 
 type Client struct {
+	name string
+
 	hub *Hub
 
 	conn *websocket.Conn
+
+	c buffalo.Context
 
 	send chan []byte
 }
@@ -51,14 +56,43 @@ func (c *Client) readPump() {
 	c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
 		_, message, err := c.conn.ReadMessage()
+		msg := string(message[:len(message)])
+		log.Println("WS: Received from WebSocket", msg)
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway) {
 				log.Printf("error: %v", err)
 			}
 			break
 		}
-		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
-		c.hub.broadcast <- message
+		if msg == "gencode" {
+			log.Println("Input code for Alice")
+			response := []byte("Alice use your code with Bob")
+			c.hub.broadcast <- response
+		} else {
+			stringSlice := strings.Split(msg, ":")
+			c.c.Session().Set("user", stringSlice[1])
+			err = c.c.Session().Save()
+			if err != nil {
+				response := []byte(err.Error())
+				c.hub.broadcast <- response
+			}
+			c.c.Session().Set("amount", stringSlice[2])
+			err = c.c.Session().Save()
+			if err != nil {
+				response := []byte(err.Error())
+				c.hub.broadcast <- response
+			}
+			log.Println(c.c.Session().Session.Values)
+			// c.c.Set("user", stringSlice[1])
+			// c.c.Set("amout", stringSlice[2])
+			err = EasyCashWithdrawalRequestShow(c.c)
+			if err != nil {
+				response := []byte(err.Error())
+				c.hub.broadcast <- response
+			}
+			// message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+			// c.hub.broadcast <- message
+		}
 	}
 }
 

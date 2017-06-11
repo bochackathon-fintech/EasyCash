@@ -17,7 +17,7 @@ func serveWS(c buffalo.Context) error {
 		log.Println(err)
 		return err
 	}
-	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
+	client := &Client{hub: hub, conn: conn, c: c, send: make(chan []byte, 256)}
 	client.hub.register <- client
 	go client.writePump()
 	client.readPump()

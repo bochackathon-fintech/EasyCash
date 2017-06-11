@@ -7,7 +7,7 @@ import (
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/i18n"
 
-	"github.com/matteo107/humanevolutionapi/models"
+	"github.com/matteo107/easycash/models"
 
 	"github.com/gobuffalo/envy"
 	"github.com/gobuffalo/packr"
@@ -26,7 +26,7 @@ func App() *buffalo.App {
 	if app == nil {
 		app = buffalo.Automatic(buffalo.Options{
 			Env:         ENV,
-			SessionName: "_humanevolutionapi_session",
+			SessionName: "_easycash_session",
 		})
 		if ENV == "development" {
 			app.Use(middleware.ParameterLogger)
@@ -50,6 +50,7 @@ func App() *buffalo.App {
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
 		app.GET("/EasyCashWithdrawalRequest/make", EasyCashWithdrawalRequestMake)
+		app.GET("/EasyCashWithdrawalRequest", EasyCashWithdrawalRequestShow)
 		app.GET("/ws", serveWS)
 		app.GET("/bob", ServeBob)
 

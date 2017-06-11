@@ -6,11 +6,11 @@ import (
 	"net/http"
 
 	"github.com/gobuffalo/envy"
-	"github.com/matteo107/humanevolutionapi/actions"
+	"github.com/matteo107/easycash/actions"
 )
 
 func main() {
 	port := envy.Get("PORT", "3000")
-	log.Printf("Starting humanevolutionapi on port %s\n", port)
+	log.Printf("Starting Easycash on port %s\n", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), actions.App()))
 }

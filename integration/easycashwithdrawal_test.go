@@ -34,7 +34,7 @@ func TestGetUser(t *testing.T) {
 }
 
 func TestParseView(t *testing.T) {
-	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\GetViewsResponse.json")
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\easycash\\samples\\GetViewsResponse.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
@@ -49,7 +49,7 @@ func TestParseView(t *testing.T) {
 }
 
 func TestParseAccount(t *testing.T) {
-	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\GetBalanceAccount.json")
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\easycash\\samples\\GetBalanceAccount.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
@@ -64,7 +64,7 @@ func TestParseAccount(t *testing.T) {
 }
 
 func TestParseUser(t *testing.T) {
-	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\GetUser.json")
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\easycash\\samples\\GetUser.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
@@ -79,7 +79,7 @@ func TestParseUser(t *testing.T) {
 }
 
 func TestParseMakeTransactionReq(t *testing.T) {
-	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\PostMakeTransactionReq.json")
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\easycash\\samples\\PostMakeTransactionReq.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
@@ -94,7 +94,7 @@ func TestParseMakeTransactionReq(t *testing.T) {
 
 }
 func TestMsgMakeTransactionResp(t *testing.T) {
-	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\PostMakeTransactionResp.json")
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\easycash\\samples\\PostMakeTransactionResp.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
@@ -109,7 +109,7 @@ func TestMsgMakeTransactionResp(t *testing.T) {
 }
 
 func TestParseAccounts(t *testing.T) {
-	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\humanevolutionapi\\samples\\GetAccountsResponse.json")
+	file, e := ioutil.ReadFile("C:\\Users\\user\\Go\\src\\github.com\\matteo107\\easycash\\samples\\GetAccountsResponse.json")
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)

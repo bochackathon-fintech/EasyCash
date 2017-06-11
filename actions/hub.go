@@ -25,7 +25,7 @@ func newHub() *Hub {
 	}
 }
 
-func (h *Hub) run() {
+func (h *Hub) run() { 
 	for {
 		select {
 		case client := <-h.register:
@@ -47,3 +47,33 @@ func (h *Hub) run() {
 		}
 	}
 }
+
+// func (h *Hub) run() {
+// 	for {
+// 		select {
+// 		case client := <-h.register:
+// 			h.clients[client] = true
+// 			log.Println("WS: Registered one client. There are clients:", len(h.clients))
+
+// 		case client := <-h.unregister:
+// 			log.Println("WS: Unregister one client. There are clients:", len(h.clients))
+// 			if _, ok := h.clients[client]; ok {
+// 				delete(h.clients, client)
+// 				close(client.send)
+// 			}
+// 		case message := <-h.broadcast:
+// 			msg := string(message[:len(message)])
+// 			log.Println("WS: Received from channel", msg)
+// 			for client := range h.clients {
+// 				select {
+// 				case client.send <- message:
+// 					log.Println("WS: Sending to channel", client, msg)
+// 				default:
+// 					close(client.send)
+// 					delete(h.clients, client)
+// 				}
+// 			}
+// 			log.Println("WS: End of broadcast. There are clients:", len(h.clients))
+// 		}
+// 	}
+// }

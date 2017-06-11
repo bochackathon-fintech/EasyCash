@@ -8,8 +8,11 @@
     <script type="text/javascript">
 window.onload = function () {
     var conn;
-    var msg = document.getElementById("msg");
-    var log = document.getElementById("log");
+    
+    var amount = document.getElementById("amount");
+    var user1 = document.getElementById("user1");
+    var user2 = document.getElementById("user2");
+    
 
     function appendLog(item) {
         // var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
@@ -19,17 +22,29 @@ window.onload = function () {
         // }
     }
 
-    // document.getElementById("form").onsubmit = function () {
+    document.getElementById("form").onsubmit = function () {
+        if (!conn) {
+            return false;
+        }
+        // if (!msg.value) {
+        //     return false;
+        // }
+        conn.send(user1.value+":"+user2.value+":"+amount.value);        
+        return false;
+    };
+
+    // document.getElementById("bobform").onsubmit = function () {
     //     if (!conn) {
     //         return false;
     //     }
-    //     if (!msg.value) {
-    //         return false;
-    //     }
-    //     conn.send(msg.value);
-    //     msg.value = "";
+    //     // if (!msg.value) {
+    //     //     return false;
+    //     // }
+    //     conn.send("gencode");        
     //     return false;
     // };
+
+    // document.getElementById("bobform").style.display="none";
 
     if (window["WebSocket"]) {
         conn = new WebSocket("ws://" + document.location.host + "/ws");
@@ -40,12 +55,17 @@ window.onload = function () {
             appendLog(item);
         };
         conn.onmessage = function (evt) {
-            var messages = evt.data.split('\n');
-            for (var i = 0; i < messages.length; i++) {
-                var item = document.createElement("div");
-                item.innerText = messages[i];
-                appendLog(item);
-            }
+            var messages = evt.data;
+            var item = document.createElement("div");
+            item.innerText = messages;
+            // alert(messages);
+
+            // for (var i = 0; i < messages.length; i++) {
+            var item = document.createElement("div");
+            item.innerText = messages;
+            //     alert(messages[i])
+            appendLog(item);
+            // }
         };
     } else {
         var item = document.createElement("div");
@@ -62,7 +82,7 @@ window.onload = function () {
 
       <%= yield %>
     </div>
-
+    <div id="log"></div>
     <script src="/assets/application.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
