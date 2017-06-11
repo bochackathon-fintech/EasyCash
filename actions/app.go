@@ -50,6 +50,9 @@ func App() *buffalo.App {
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
 		app.GET("/EasyCashWithdrawalRequest/make", EasyCashWithdrawalRequestMake)
+		app.GET("/ws", serveWS)
+		app.GET("/bob", ServeBob)
+
 	}
 
 	return app
