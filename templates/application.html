@@ -1,88 +1,104 @@
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>Buffalo - Humanevolution</title>
+    <title>EasyCash</title>
     <link rel="stylesheet" href="/assets/application.css" type="text/css" media="all" />
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="<%= authenticity_token %>" />
     <script type="text/javascript">
-window.onload = function () {
-    var conn;
-    
-    var amount = document.getElementById("amount");
-    var user1 = document.getElementById("user1");
-    var user2 = document.getElementById("user2");
-    
+        window.onload = function () {
+            var conn;
 
-    function appendLog(item) {
-        // var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
-        log.appendChild(item);
-        // if (doScroll) {
-        //     log.scrollTop = log.scrollHeight - log.clientHeight;
-        // }
-    }
+            var amount = document.getElementById("amount");
+            var user1 = document.getElementById("user1");
+            var user2 = document.getElementById("user2");
 
-    document.getElementById("form").onsubmit = function () {
-        if (!conn) {
-            return false;
-        }
-        // if (!msg.value) {
-        //     return false;
-        // }
-        conn.send(user1.value+":"+user2.value+":"+amount.value);        
-        return false;
-    };
 
-    // document.getElementById("bobform").onsubmit = function () {
-    //     if (!conn) {
-    //         return false;
-    //     }
-    //     // if (!msg.value) {
-    //     //     return false;
-    //     // }
-    //     conn.send("gencode");        
-    //     return false;
-    // };
+            function appendLog(item) {
+                // var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
+                log.appendChild(item);
+                // if (doScroll) {
+                //     log.scrollTop = log.scrollHeight - log.clientHeight;
+                // }
+            }
 
-    // document.getElementById("bobform").style.display="none";
+            function clearLog() {
+                // var doScroll = log.scrollTop > log.scrollHeight - log.clientHeight - 1;
+                // var myNode = document.getElementById("log");
+                log.innerHTML = '';
+                // if (doScroll) {
+                //     log.scrollTop = log.scrollHeight - log.clientHeight;
+                // }
+            }
 
-    if (window["WebSocket"]) {
-        conn = new WebSocket("ws://" + document.location.host + "/ws");
-        // conn = new WebSocket("ws://localhost:3000/ws");
-        conn.onclose = function (evt) {
-            var item = document.createElement("div");
-            item.innerHTML = "<b>Connection closed.</b>";
-            appendLog(item);
+            document.getElementById("form").onsubmit = function () {
+                if (!conn) {
+                    return false;
+                }
+                // if (!msg.value) {
+                //     return false;
+                // }
+                conn.send(user1.value + ":" + user2.value + ":" + amount.value);
+                clearLog();
+                return false;
+            };
+
+            // document.getElementById("bobform").onsubmit = function () {
+            //     if (!conn) {
+            //         return false;
+            //     }
+            //     // if (!msg.value) {
+            //     //     return false;
+            //     // }
+            //     conn.send("gencode");        
+            //     return false;
+            // };
+
+            // document.getElementById("bobform").style.display="none";
+
+            if (window["WebSocket"]) {
+                conn = new WebSocket("ws://" + document.location.host + "/ws");
+                // conn = new WebSocket("ws://localhost:3000/ws");
+                conn.onclose = function (evt) {
+                    var item = document.createElement("div");
+                    item.innerHTML = "<b>Connection closed.</b>";
+                    appendLog(item);
+                };
+                conn.onmessage = function (evt) {
+                    var messages = evt.data;
+                    var item = document.createElement("div");
+                    item.innerText = messages;
+                    // alert(messages);
+
+                    // for (var i = 0; i < messages.length; i++) {
+                    var item = document.createElement("div");
+                    item.innerText = messages;
+                    //     alert(messages[i])
+                    appendLog(item);
+                    // }
+                };
+            } else {
+                var item = document.createElement("div");
+                item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
+                appendLog(item);
+            }
         };
-        conn.onmessage = function (evt) {
-            var messages = evt.data;
-            var item = document.createElement("div");
-            item.innerText = messages;
-            // alert(messages);
+    </script>
+</head>
 
-            // for (var i = 0; i < messages.length; i++) {
-            var item = document.createElement("div");
-            item.innerText = messages;
-            //     alert(messages[i])
-            appendLog(item);
-            // }
-        };
-    } else {
-        var item = document.createElement("div");
-        item.innerHTML = "<b>Your browser does not support WebSockets.</b>";
-        appendLog(item);
-    }
-};
-</script>
-  </head>
-  <body>
+<body>
 
     <div class="container">
-      <%= partial("flash.html") %>
+        <%= partial("flash.html") %>
 
-      <%= yield %>
+            <%= yield %>
     </div>
-    <div id="log"></div>
+    <div id="log" class="panel panel-info">
+
+    </div>
+
     <script src="/assets/application.js" type="text/javascript" charset="utf-8"></script>
-  </body>
+</body>
+
 </html>
