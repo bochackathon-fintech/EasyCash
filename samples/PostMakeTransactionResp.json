@@ -16,8 +16,8 @@
    "end_date": "2017-06-10T18:35:42.143Z",
    "timestamp": "2017-06-10T18:35:42.143Z",
    "description": "string",
-   "resource_url": "/api/banks/bda8eb884efcef7082792d45/accounts/bda8eb884efcea209b2a6240/make-transaction",
+   "resource_url": "/api/banks/bda8eb884efcef7082792d45/accounts/c8e632e6471b450f8e36c6d0/make-transaction",
    "bank_id": "bda8eb884efcef7082792d45",
-   "account_id": "bda8eb884efcea209b2a6240",
+   "account_id": "c8e632e6471b450f8e36c6d0",
    "id": "593c3bfe270faa1f181203eb"
 }

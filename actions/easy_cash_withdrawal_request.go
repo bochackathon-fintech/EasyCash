@@ -18,8 +18,10 @@ import (
 func EasyCashWithdrawalRequestMake(c buffalo.Context) error {
 	log.SetFlags(log.Lshortfile)
 	//BoCAPI -> GetBalance(AuthProviderName,AuthID)
+
 	viewid := integration.GetView()
 	balance := integration.GetBalance(viewid)
+
 	balString := fmt.Sprintf("%.2f", balance)
 
 	c.Set("balance", balString)
@@ -61,8 +63,7 @@ func EasyCashWithdrawalRequestMake(c buffalo.Context) error {
 	log.Println("user.Authprovidername", user.Authprovidername)
 
 	customerID := integration.GetUser(user.Authprovidername)
-	// customerID := integration.GetUser(integration.AuthProviderNameBob)
-	// customerID := integration.GetUser("12345")
+
 	if customerID == "" {
 		c.Set("authresponse", "Withdrawal declined. Human ATM not found")
 		return c.Render(500, r.HTML("easy_cash_withdrawal_request/make.html"))
@@ -75,7 +76,8 @@ func EasyCashWithdrawalRequestMake(c buffalo.Context) error {
 			status := integration.PostMakeTransaction(requestedAmount, ToAccountID)
 
 			if status == "COMPLETED" {
-				c.Set("authresponse", status)
+
+				c.Set("authresponse", status+". Your Transaction ID:"+integration.TransactionIDs[0])
 				return c.Render(200, r.HTML("easy_cash_withdrawal_request/make.html"))
 			} else {
 				c.Set("authresponse", "Withdrawal declined. Internal error")

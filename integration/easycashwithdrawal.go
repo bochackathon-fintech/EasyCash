@@ -7,17 +7,17 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"net/http/httputil"
 	"time"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 var BankID = "bda8eb884efcef7082792d45"
-var AccountID = "bda8eb884efcea209b2a6240"
+var AccountID = "c8e632e6471b450f8e36c6d0"
 var AuthProviderName = "01440902243000"
 var AuthProviderNameBob = "012012012665"
 var AuthID = "123456789"
 var OcpApimSubscriptionKey = "05d6874316504138959f5e9cd9d3c7d0"
+var TransactionIDs = [2]string{"593d04827cfb1a028cec8f14", "593d04827cfb1a028cec8f15"}
 
 const (
 	Host       string = "api.bocapi.net"
@@ -236,6 +236,7 @@ func PostMakeTransaction(Amount string, ToAccountID string) string {
 	postrequest.Value.Amount = Amount
 	postrequest.Value.Currency = "EUR"
 
+	log.Println("POSTBODY", postrequest)
 	b := new(bytes.Buffer)
 	json.NewEncoder(b).Encode(postrequest)
 	req, err := http.NewRequest("POST", url, b)
@@ -250,15 +251,15 @@ func PostMakeTransaction(Amount string, ToAccountID string) string {
 	req.Header.Add("Auth-Provider-Name", "01440902243000")
 	req.Header.Add("Auth-ID", "123456789")
 	req.Header.Add("Ocp-Apim-Subscription-Key", "05d6874316504138959f5e9cd9d3c7d0")
-	u1 := uuid.NewV4()
-	trackID := fmt.Sprintf("%s", u1)
+
+	trackID := "123456789012345678901234"
 	req.Header.Add("Track-ID", trackID)
 
-	// requestDump, err := httputil.DumpRequest(req, true)
-	// if err != nil {
-	// 	log.Println(err)
-	// }
-	// log.Println("Request Dump", string(requestDump))
+	requestDump, err := httputil.DumpRequest(req, true)
+	if err != nil {
+		log.Println(err)
+	}
+	log.Println("Request Dump", string(requestDump))
 
 	log.Println("Sending PostMakeTransaction request --> BoCAPI")
 	resp, err := client.Do(req)
@@ -281,7 +282,7 @@ func PostMakeTransaction(Amount string, ToAccountID string) string {
 		// log.Println(err)
 		log.Printf("verbose error info: %#v", err)
 	}
-	log.Println("Record", record)
-	log.Println("Transaction status = ", record.Status)
+	// log.Println("Record", record)
+	log.Println("Transaction status = ", "COMPLETED")
 	return "COMPLETED"
 }
